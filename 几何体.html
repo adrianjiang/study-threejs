@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+	<body>
+		
+	</body>
+	<script src="js/three.min.js" type="text/javascript" charset="utf-8"></script>
+
+	<script type="text/javascript">
+		  var scene, camera, renderer, cube, plane, sphere, spotLight;
+		scene = new THREE.Scene();
+		camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, .1, 1000);
+		renderer = new THREE.WebGLRenderer();
+		renderer.setSize(window.innerWidth, window.innerHeight);
+		renderer.shadowMap.enabled = true;
+
+		camera.position.x = -30;
+		camera.position.y = 40;
+		camera.position.z = 30;
+		camera.lookAt(scene.position);//将相机快门的位置设置为场景的位置
+		
+		// document.body.appendChild( renderer.domElement );
+
+		function addPlane() {
+			//着色器
+			var planeGeometry = new THREE.PlaneGeometry(60, 20, 1, 1);
+			//材质
+			var planeMaterial = new THREE.MeshLambertMaterial({color: 0xffffff});
+			//生成平面体
+			plane = new THREE.Mesh(planeGeometry, planeMaterial);
+
+			//打开阴影效果 plane.receiveShadow = true;
+
+			//设置平面体的位置
+			plane.position.x = 16;
+			plane.position.y = 0;
+			plane.position.z = 0;
+			//也可以直接.set进行设置
+			//plane.position.set(16,0,0);
+			//设置平面体的旋转
+			plane.rotation.x = -.5 * Math.PI;
+			//将平面体加入到场景中
+			scene.add(plane);
+		}
+		function addCube() {
+			//着色器
+			var cubeGeometry = new THREE.BoxGeometry(4, 4, 4);
+			//材质
+			var cubeMaterial = new THREE.MeshLambertMaterial({color: 0x00ff00});
+			//生成立方体
+			cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+
+			//打开阴影效果 cube.castShadow = true;
+
+			//设置立方体的位置
+			cube.position.x = -4;
+			cube.position.y = 3;
+			cube.position.z = 0;
+			//将立方体加入到场景当中
+			scene.add(cube);
+		}
+		function addSphere() {
+			//着色器 
+			var sphereGeometry = new THREE.SphereGeometry(4, 20, 20);
+			//材质 
+			var sphereMaterial = new THREE.MeshBasicMaterial({color: 0xff0000});
+			//生成球面体 
+			sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+			//打开阴影效果
+
+			sphere.castShadow = true;
+
+			//设置球面体的位置 
+			sphere.position.x = 20;
+			sphere.position.y = 0;
+			sphere.position.z = 2;
+			//将球面体加入到场景中
+			scene.add(sphere);
+		}
+		function addSpotLight() {
+			spotLight = new THREE.SpotLight(0xffffff, 1);
+			spotLight.position.set(-40, 60, -10);
+			spotLight.castShadow = true;
+			spotLight.shadow.mapSize.width = 2048;
+			spotLight.shadow.mapSize.height = 2048;
+			scene.add(spotLight);
+		}
+		function render() {
+			cube.rotation.x += 0.01;
+			cube.rotation.y += 0.01;
+			cube.rotation.z += 0.01;
+
+			sphere.position.x += 0.01;
+			sphere.position.y += 0.01;
+			requestAnimationFrame(render);
+			renderer.render(scene, camera);
+		}
+		
+		document.body.appendChild(renderer.domElement);
+		addSphere();
+		addCube();
+		addPlane();
+		addSpotLight();
+		render();
+	</script>
+</html>

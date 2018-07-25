@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<style type="text/css">
+			body { margin: 0; }
+			canvas { width: 100%; height: 100% }
+		</style>
+	</head>
+	<body>
+	</body>
+	<script src="js/three.min.js" type="text/javascript" charset="utf-8"></script>
+
+	<script type="text/javascript">
+		//创建场景
+var scene = new THREE.Scene();
+//创建相机
+var camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, .1, 1000);
+//创建渲染器
+
+var renderer = new THREE.WebGLRenderer();
+
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.shadowMap.enabled = true;
+
+//着色器
+
+var planeGeometry = new THREE.PlaneGeometry(60, 20, 1, 1);
+//材质
+
+var planeMaterial = new THREE.MeshLambertMaterial({color: 0xffffff});
+//生成平面体
+
+var plane = new THREE.Mesh(planeGeometry, planeMaterial);
+
+//打开阴影效果
+
+plane.receiveShadow = true;
+
+//设置平面体的位置
+plane.position.x = 16;
+
+plane.position.y = 0;
+
+plane.position.z = 0;
+//也可以直接.set进行设置
+//plane.position.set(16,0,0);
+//设置平面体的旋转
+plane.rotation.x = -.5 * Math.PI;
+//将平面体加入到场景中
+scene.add(plane);
+	</script>
+</html>
