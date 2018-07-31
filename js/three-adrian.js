@@ -74,11 +74,16 @@ ThreeAdrian.example = {
 		return plane
 	}
 }
-
-function draw_coordinate() {
+ThreeAdrian.init_all = function() {
 	ThreeAdrian.init()
 	ThreeAdrian.init_camera()
 	ThreeAdrian.init_spotLight()
+}
+
+function draw_coordinate() {
+	// ThreeAdrian.init()
+	// ThreeAdrian.init_camera()
+	// ThreeAdrian.init_spotLight()
 	ThreeAdrian.example.create_plane()
 	var geometry = new THREE.Geometry();
 	geometry.vertices.push( new THREE.Vector3( - 100, 0, 0 ) );
